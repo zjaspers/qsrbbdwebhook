@@ -1,32 +1,190 @@
-<script>
-    document.getElementById("checklistForm").addEventListener("submit", function(event) {
-        event.preventDefault(); // Prevent the default form submission
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee Shop Dairy Ingredients Best-By Date Checklist</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .notes {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e7f3fe;
+            border-left: 6px solid #2196F3;
+        }
+        input[type="text"], input[type="date"], input[type="number"] {
+            width: 100%;
+            padding: 6px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Coffee Shop Dairy Ingredients Best-By Date Checklist</h1>
+    
+    <form id="checklistForm">
+        <table>
+            <thead>
+                <tr>
+                    <th>Dairy Item</th>
+                    <th>Unopened Shelf Life</th>
+                    <th>Opened Shelf Life</th>
+                    <th>Date Opened</th>
+                    <th>Use By Date</th>
+                    <th>Checked By</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Whole Milk</td>
+                    <td>5-7 days past printed date</td>
+                    <td>5-7 days</td>
+                    <td><input type="date" name="wholeMilkDateOpened"></td>
+                    <td><input type="date" name="wholeMilkUseByDate"></td>
+                    <td><input type="text" name="wholeMilkCheckedBy" placeholder="Your name"></td>
+                </tr>
+                <tr>
+                    <td>Skim Milk</td>
+                    <td>5-7 days past printed date</td>
+                    <td>5-7 days</td>
+                    <td><input type="date" name="skimMilkDateOpened"></td>
+                    <td><input type="date" name="skimMilkUseByDate"></td>
+                    <td><input type="text" name="skimMilkCheckedBy" placeholder="Your name"></td>
+                </tr>
+                <tr>
+                    <td>Half and Half</td>
+                    <td>7-10 days past printed date</td>
+                    <td>7-10 days</td>
+                    <td><input type="date" name="halfAndHalfDateOpened"></td>
+                    <td><input type="date" name="halfAndHalfUseByDate"></td>
+                    <td><input type="text" name="halfAndHalfCheckedBy" placeholder="Your name"></td>
+                </tr>
+                <tr>
+                    <td>Heavy Cream</td>
+                    <td>7-10 days past printed date</td>
+                    <td>7-10 days</td>
+                    <td><input type="date" name="heavyCreamDateOpened"></td>
+                    <td><input type="date" name="heavyCreamUseByDate"></td>
+                    <td><input type="text" name="heavyCreamCheckedBy" placeholder="Your name"></td>
+                </tr>
+                <tr>
+                    <td>Almond Milk (shelf-stable, unopened)</td>
+                    <td>Best by date on carton</td>
+                    <td>7-10 days</td>
+                    <td><input type="date" name="almondMilkDateOpened"></td>
+                    <td><input type="date" name="almondMilkUseByDate"></td>
+                    <td><input type="text" name="almondMilkCheckedBy" placeholder="Your name"></td>
+                </tr>
+                <tr>
+                    <td>Soy Milk (shelf-stable, unopened)</td>
+                    <td>Best by date on carton</td>
+                    <td>7-10 days</td>
+                    <td><input type="date" name="soyMilkDateOpened"></td>
+                    <td><input type="date" name="soyMilkUseByDate"></td>
+                    <td><input type="text" name="soyMilkCheckedBy" placeholder="Your name"></td>
+                </tr>
+                <tr>
+                    <td>Oat Milk (shelf-stable, unopened)</td>
+                    <td>Best by date on carton</td>
+                    <td>7-10 days</td>
+                    <td><input type="date" name="oatMilkDateOpened"></td>
+                    <td><input type="date" name="oatMilkUseByDate"></td>
+                    <td><input type="text" name="oatMilkCheckedBy" placeholder="Your name"></td>
+                </tr>
+                <tr>
+                    <td>Liquid Coffee Creamer</td>
+                    <td>Best by date on bottle</td>
+                    <td>7-14 days</td>
+                    <td><input type="date" name="creamerDateOpened"></td>
+                    <td><input type="date" name="creamerUseByDate"></td>
+                    <td><input type="text" name="creamerCheckedBy" placeholder="Your name"></td>
+                </tr>
+                <tr>
+                    <td>Whipped Cream (aerosol can)</td>
+                    <td>Best by date on can</td>
+                    <td>7-10 days</td>
+                    <td><input type="date" name="whippedCreamDateOpened"></td>
+                    <td><input type="date" name="whippedCreamUseByDate"></td>
+                    <td><input type="text" name="whippedCreamCheckedBy" placeholder="Your name"></td>
+                </tr>
+            </tbody>
+        </table>
 
-        const formData = new FormData(event.target);
-        const jsonData = {};
+        <button type="submit" style="margin-top: 20px; padding: 10px 20px;">Submit Checklist</button>
+    </form>
 
-        // Convert form data to JSON
-        formData.forEach((value, key) => {
-            jsonData[key] = value;
+    <div class="notes">
+        <h3>Important Notes:</h3>
+        <ul>
+            <li>Always check for signs of spoilage (odd smell, curdling, mold) before using, regardless of the date.</li>
+            <li>Keep all dairy products refrigerated at 40°F (4°C) or below.</li>
+            <li>Use the "First In, First Out" (FIFO) method when stocking dairy products.</li>
+            <li>For unopened shelf-stable milk alternatives, check the "Best By" date on the package.</li>
+            <li>Once opened, shelf-stable milk alternatives should be treated like refrigerated milk.</li>
+            <li>This checklist should be completed daily as part of opening procedures.</li>
+        </ul>
+    </div>
+
+    <script>
+        document.getElementById("checklistForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            const formData = new FormData(event.target);
+            const jsonData = {};
+
+            // Convert form data to JSON
+            formData.forEach((value, key) => {
+                jsonData[key] = value;
+            });
+
+            // Send POST request to GitHub webhook URL
+            fetch("https://github.com/your-repository/webhook-url", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(jsonData)
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert("Checklist successfully submitted!");
+                } else {
+                    alert("Failed to submit the checklist.");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
         });
-
-        // Send POST request to GitHub webhook URL
-        fetch("https://github.com/your-repository/webhook-url", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(jsonData)
-        })
-        .then(response => {
-            if (response.ok) {
-                alert("Checklist successfully submitted!");
-            } else {
-                alert("Failed to submit the checklist.");
-            }
-        })
-        .catch(error => {
-            console.error("Error:", error);
-        });
-    });
-</script>
+    </script>
+</body>
+</html>

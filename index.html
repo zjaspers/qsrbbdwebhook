@@ -1,0 +1,32 @@
+<script>
+    document.getElementById("checklistForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        const formData = new FormData(event.target);
+        const jsonData = {};
+
+        // Convert form data to JSON
+        formData.forEach((value, key) => {
+            jsonData[key] = value;
+        });
+
+        // Send POST request to GitHub webhook URL
+        fetch("https://github.com/your-repository/webhook-url", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(jsonData)
+        })
+        .then(response => {
+            if (response.ok) {
+                alert("Checklist successfully submitted!");
+            } else {
+                alert("Failed to submit the checklist.");
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+        });
+    });
+</script>
